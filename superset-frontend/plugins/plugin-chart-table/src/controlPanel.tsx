@@ -403,7 +403,7 @@ const config: ControlPanelConfig = {
               freeForm: true,
               renderTrigger: true,
               label: t('Page length'),
-              default: null,
+              default: 10,
               choices: PAGE_SIZE_OPTIONS,
               description: t('Rows per page, 0 means no pagination'),
               visibility: ({ controls }: ControlPanelsContainerProps) =>

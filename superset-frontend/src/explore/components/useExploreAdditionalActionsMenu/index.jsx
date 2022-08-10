@@ -255,7 +255,7 @@ export const useExploreAdditionalActionsMenu = (
           </>
         )}
         <Menu.SubMenu title={t('Download')} key={MENU_KEYS.DOWNLOAD_SUBMENU}>
-          {VIZ_TYPES_PIVOTABLE.includes(latestQueryFormData.viz_type) ? (
+          {/* {VIZ_TYPES_PIVOTABLE.includes(latestQueryFormData.viz_type) ? (
             <>
               <Menu.Item
                 key={MENU_KEYS.EXPORT_TO_CSV}
@@ -280,10 +280,10 @@ export const useExploreAdditionalActionsMenu = (
             >
               {t('Export to .CSV')}
             </Menu.Item>
-          )}
-          <Menu.Item key={MENU_KEYS.EXPORT_TO_JSON} icon={<FileOutlined />}>
+          )} */}
+          {/* <Menu.Item key={MENU_KEYS.EXPORT_TO_JSON} icon={<FileOutlined />}>
             {t('Export to .JSON')}
-          </Menu.Item>
+          </Menu.Item> */}
           <Menu.Item
             key={MENU_KEYS.DOWNLOAD_AS_IMAGE}
             icon={<FileImageOutlined />}
@@ -358,11 +358,11 @@ export const useExploreAdditionalActionsMenu = (
             responsive
           />
         </Menu.Item>
-        {datasource && (
+        {/* {datasource && (
           <Menu.Item key={MENU_KEYS.RUN_IN_SQL_LAB}>
             {t('Run in SQL Lab')}
           </Menu.Item>
-        )}
+        )} */}
       </Menu>
     ),
     [

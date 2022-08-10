@@ -132,42 +132,42 @@ const RightMenu = ({
   const isAdmin = isUserAdmin(user);
   const showUploads = allowUploads || isAdmin;
   const dropdownItems: MenuObjectProps[] = [
+    // {
+    //   label: t('Data'),
+    //   icon: 'fa-database',
+    //   childs: [
+    //     {
+    //       label: t('Connect database'),
+    //       name: GlobalMenuDataOptions.DB_CONNECTION,
+    //       perm: canDatabase,
+    //     },
+    //     {
+    //       label: t('Connect Google Sheet'),
+    //       name: GlobalMenuDataOptions.GOOGLE_SHEETS,
+    //       perm: canDatabase && HAS_GSHEETS_INSTALLED,
+    //     },
+    //     {
+    //       label: t('Upload CSV to database'),
+    //       name: 'Upload a CSV',
+    //       url: '/csvtodatabaseview/form',
+    //       perm: canUploadCSV && showUploads,
+    //     },
+    //     {
+    //       label: t('Upload columnar file to database'),
+    //       name: 'Upload a Columnar file',
+    //       url: '/columnartodatabaseview/form',
+    //       perm: canUploadColumnar && showUploads,
+    //     },
+    //     {
+    //       label: t('Upload Excel file to database'),
+    //       name: 'Upload Excel',
+    //       url: '/exceltodatabaseview/form',
+    //       perm: canUploadExcel && showUploads,
+    //     },
+    //   ],
+    // },
     {
-      label: t('Data'),
-      icon: 'fa-database',
-      childs: [
-        {
-          label: t('Connect database'),
-          name: GlobalMenuDataOptions.DB_CONNECTION,
-          perm: canDatabase,
-        },
-        {
-          label: t('Connect Google Sheet'),
-          name: GlobalMenuDataOptions.GOOGLE_SHEETS,
-          perm: canDatabase && HAS_GSHEETS_INSTALLED,
-        },
-        {
-          label: t('Upload CSV to database'),
-          name: 'Upload a CSV',
-          url: '/csvtodatabaseview/form',
-          perm: canUploadCSV && showUploads,
-        },
-        {
-          label: t('Upload columnar file to database'),
-          name: 'Upload a Columnar file',
-          url: '/columnartodatabaseview/form',
-          perm: canUploadColumnar && showUploads,
-        },
-        {
-          label: t('Upload Excel file to database'),
-          name: 'Upload Excel',
-          url: '/exceltodatabaseview/form',
-          perm: canUploadExcel && showUploads,
-        },
-      ],
-    },
-    {
-      label: t('SQL query'),
+      label: t('Preview & Merge Data'),
       url: '/superset/sqllab?new=true',
       icon: 'fa-fw fa-search',
       perm: 'can_sqllab',

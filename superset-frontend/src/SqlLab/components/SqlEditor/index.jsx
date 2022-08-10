@@ -80,6 +80,8 @@ import AceEditorWrapper from '../AceEditorWrapper';
 import RunQueryActionButton from '../RunQueryActionButton';
 import { newQueryTabName } from '../../utils/newQueryTabName';
 
+import MergeTable from "src/SqlLab/components/react_ui/MergeTable"
+import { final_res } from "src/SqlLab/components/react_ui/JoinOption";
 const LIMIT_DROPDOWN = [10, 100, 1000, 10000, 100000];
 const SQL_EDITOR_PADDING = 10;
 const INITIAL_NORTH_PERCENT = 30;
@@ -475,6 +477,7 @@ class SqlEditor extends React.PureComponent {
       ctas_method,
       updateTabState: !qe.selectedText,
     };
+    query.sql = final_res //JoinOption解析Merge資訊為json，傳至view/core.py
     this.props.runQuery(query);
     this.props.setActiveSouthPaneTab('Results');
   }
@@ -523,7 +526,7 @@ class SqlEditor extends React.PureComponent {
         onDragEnd={this.onResizeEnd}
       >
         <div ref={this.northPaneRef} className="north-pane">
-          <AceEditorWrapper
+          {/* <AceEditorWrapper
             actions={this.props.actions}
             autocomplete={this.state.autocompleteEnabled}
             onBlur={this.setQueryEditorSql}
@@ -537,7 +540,8 @@ class SqlEditor extends React.PureComponent {
             extendedTables={this.props.tables}
             height={`${aceEditorHeight}px`}
             hotkeys={hotkeys}
-          />
+          /> */}
+          <MergeTable/>
           {this.renderEditorBottomBar(hotkeys)}
         </div>
         <ConnectedSouthPane
@@ -693,7 +697,7 @@ class SqlEditor extends React.PureComponent {
                 />
               </span>
             )}
-          <span>
+          {/* <span>
             <LimitSelectStyled>
               <AntdDropdown overlay={this.renderQueryLimit()} trigger="click">
                 <a onClick={e => e.preventDefault()}>
@@ -716,9 +720,9 @@ class SqlEditor extends React.PureComponent {
               state={STATE_TYPE_MAP[this.props.latestQuery.state]}
               isRunning={this.props.latestQuery.state === 'running'}
             />
-          )}
+          )} */}
         </div>
-        <div className="rightItems">
+        {/* <div className="rightItems">
           <span>
             <SaveQuery
               query={{
@@ -738,7 +742,7 @@ class SqlEditor extends React.PureComponent {
           <AntdDropdown overlay={this.renderDropdown()} trigger="click">
             <Icons.MoreHoriz iconColor={theme.colors.grayscale.base} />
           </AntdDropdown>
-        </div>
+        </div> */}
       </StyledToolbar>
     );
   }
@@ -777,7 +781,7 @@ class SqlEditor extends React.PureComponent {
         {this.state.showEmptyState ? (
           <EmptyStateBig
             image="vector.svg"
-            title={t('Select a database to write a query')}
+            title={t('Select a database to merge dataset')}
             description={t(
               'Choose one of the available databases from the panel on the left.',
             )}

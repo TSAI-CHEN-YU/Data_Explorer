@@ -299,14 +299,14 @@ export default function DatabaseSelector({
     return renderSelectRow(
       <Select
         ariaLabel={t('Select schema or type schema name')}
-        disabled={!currentDb || readOnly}
+        disabled={readOnly}
         header={<FormLabel>{t('Schema')}</FormLabel>}
         labelInValue
         loading={loadingSchemas}
         name="select-schema"
         placeholder={t('Select schema or type schema name')}
         onChange={item => changeSchema(item as SchemaValue)}
-        options={schemaOptions}
+        options={[{value: 'NTUHex', label: 'NTUHex', title: 'NTUHex'}]}
         showSearch
         value={currentSchema}
       />,

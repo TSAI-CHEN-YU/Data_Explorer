@@ -319,6 +319,8 @@
     "react-resizable": "^3.0.4",
     "react-test-renderer": "^16.9.0",
     "redux-mock-store": "^1.5.4",
+    "semantic-ui-react": "^2.1.2",
+    "react-use-window-scroll": "^1.0.13",
     "sinon": "^9.0.2",
     "source-map-support": "^0.5.16",
     "speed-measure-webpack-plugin": "^1.5.0",

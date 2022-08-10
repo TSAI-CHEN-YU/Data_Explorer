@@ -2118,6 +2118,11 @@ class Superset(BaseSupersetView):  # pylint: disable=too-many-public-methods
         table.schema = data.get("schema")
         table.template_params = data.get("templateParams")
         table.is_sqllab_view = True
+		# parse merge sql statments 
+        from colorama import Fore, Style
+        from superset.views.Parse_merge_sql import Parse_final_res
+        logger.debug(Fore.YELLOW+f"[in] {data}"+Style.RESET_ALL)
+        data = Parse_final_res(data) #parse & modify
         table.sql = ParsedQuery(data.get("sql")).stripped()
         db.session.add(table)
         cols = []
@@ -2437,6 +2442,12 @@ class Superset(BaseSupersetView):  # pylint: disable=too-many-public-methods
             log_params = {
                 "user_agent": cast(Optional[str], request.headers.get("USER_AGENT"))
             }
+            # parse merge sql statments 
+            from colorama import Fore, Style
+            from superset.views.Parse_merge_sql import Parse_final_res
+            logger.debug(Fore.YELLOW+f"[in] {request.json}"+Style.RESET_ALL)
+            mod_request_json = Parse_final_res(request.json) #parse & modify
+            execution_context = SqlJsonExecutionContext(mod_request_json) # request.json
             execution_context = SqlJsonExecutionContext(request.json)
             command = self._create_sql_json_command(execution_context, log_params)
             command_result: CommandResult = command.run()

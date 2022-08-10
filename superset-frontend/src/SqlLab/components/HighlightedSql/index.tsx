@@ -97,19 +97,20 @@ function HighlightedSql({
   shrink = false,
 }: HighlightedSqlProps) {
   return (
-    <ModalTrigger
-      modalTitle={t('SQL')}
-      modalBody={<HighlightSqlModal rawSql={rawSql} sql={sql} />}
-      triggerNode={
-        <TriggerNode
-          shrink={shrink}
-          sql={sql}
-          maxLines={maxLines}
-          maxWidth={maxWidth}
-        />
-      }
-    />
-  );
+  //   <ModalTrigger
+  //     modalTitle={t('SQL')}
+  //     modalBody={<HighlightSqlModal rawSql={rawSql} sql={sql} />}
+  //     triggerNode={
+  //       <TriggerNode
+  //         shrink={shrink}
+  //         sql={sql}
+  //         maxLines={maxLines}
+  //         maxWidth={maxWidth}
+  //       />
+  //     }
+  //   />
+  // );
+    <></>
 }
 
 export default HighlightedSql;

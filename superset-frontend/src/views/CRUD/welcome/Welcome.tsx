@@ -45,7 +45,7 @@ import ActivityTable from './ActivityTable';
 import ChartTable from './ChartTable';
 import SavedQueries from './SavedQueries';
 import DashboardTable from './DashboardTable';
-
+import { Home_content } from './HomeContent';
 const extensionsRegistry = getExtensionsRegistry();
 
 interface WelcomeProps {
@@ -294,7 +294,8 @@ function Welcome({ user, addDangerToast }: WelcomeProps) {
       </WelcomeNav>
       <Collapse activeKey={activeState} onChange={handleCollapse} ghost bigger>
         <Collapse.Panel header={t('Recents')} key="1">
-          {activityData &&
+        <Home_content />
+          {/* {activityData &&
           (activityData.Viewed ||
             activityData.Examples ||
             activityData.Created) &&
@@ -344,7 +345,7 @@ function Welcome({ user, addDangerToast }: WelcomeProps) {
               mine={queryData}
               featureFlag={isFeatureEnabled(FeatureFlag.THUMBNAILS)}
             />
-          )}
+          )} */}
         </Collapse.Panel>
       </Collapse>
     </WelcomeContainer>

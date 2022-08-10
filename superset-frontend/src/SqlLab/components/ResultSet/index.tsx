@@ -288,11 +288,11 @@ export default class ResultSet extends React.PureComponent<
                   onClick={this.createExploreResultsOnClick}
                 />
               )}
-            {this.props.csv && (
+            {/* {this.props.csv && (
               <Button buttonSize="small" href={`/superset/csv/${query.id}`}>
                 <i className="fa fa-file-text-o" /> {t('Download to CSV')}
               </Button>
-            )}
+            )} */}
 
             <CopyToClipboard
               text={prepareCopyToClipboardTabularData(data, columns)}
@@ -528,7 +528,7 @@ export default class ResultSet extends React.PureComponent<
         return (
           <>
             {this.renderControls()}
-            {this.renderRowsReturned()}
+            {/* {this.renderRowsReturned()} */} {/* 不顯示warning */}
             {sql}
             <FilterableTable
               data={data}

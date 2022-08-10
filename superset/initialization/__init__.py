@@ -246,7 +246,7 @@ class SupersetAppInitializer:  # pylint: disable=too-many-public-methods
             "Charts",
             label=__("Charts"),
             icon="fa-bar-chart",
-            category="",
+            category="Security",
             category_icon="",
         )
         appbuilder.add_view(
@@ -326,47 +326,47 @@ class SupersetAppInitializer:  # pylint: disable=too-many-public-methods
         )
         appbuilder.add_link(
             "SQL Editor",
-            label=_("SQL Editor"),
+            label=_("Preview & Merge Data"),
             href="/superset/sqllab/",
             category_icon="fa-flask",
             icon="fa-flask",
-            category="SQL Lab",
+            category="",
             category_label=__("SQL Lab"),
         )
-        appbuilder.add_link(
-            __("Saved Queries"),
-            href="/savedqueryview/list/",
-            icon="fa-save",
-            category="SQL Lab",
-        )
-        appbuilder.add_link(
-            "Query Search",
-            label=_("Query History"),
-            href="/superset/sqllab/history/",
-            icon="fa-search",
-            category_icon="fa-flask",
-            category="SQL Lab",
-            category_label=__("SQL Lab"),
-        )
-        appbuilder.add_view(
-            DatabaseView,
-            "Databases",
-            label=__("Databases"),
-            icon="fa-database",
-            category="Data",
-            category_label=__("Data"),
-            category_icon="fa-database",
-        )
+        # appbuilder.add_link(
+        #     __("Saved Queries"),
+        #     href="/savedqueryview/list/",
+        #     icon="fa-save",
+        #     category="SQL Lab",
+        # )
+        # appbuilder.add_link(
+        #     "Query Search",
+        #     label=_("Query History"),
+        #     href="/superset/sqllab/history/",
+        #     icon="fa-search",
+        #     category_icon="fa-flask",
+        #     category="SQL Lab",
+        #     category_label=__("SQL Lab"),
+        # )
+        # appbuilder.add_view(
+        #     DatabaseView,
+        #     "Databases",
+        #     label=__("Databases"),
+        #     icon="fa-database",
+        #     category="Data",
+        #     category_label=__("Data"),
+        #     category_icon="fa-database",
+        # )
         appbuilder.add_link(
             "Datasets",
             label=__("Datasets"),
             href="/tablemodelview/list/",
             icon="fa-table",
-            category="Data",
+            category="",
             category_label=__("Data"),
             category_icon="fa-table",
         )
-        appbuilder.add_separator("Data")
+        # appbuilder.add_separator("Data")
 
         appbuilder.add_api(LogRestApi)
         appbuilder.add_view(

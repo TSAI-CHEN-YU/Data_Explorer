@@ -89,7 +89,7 @@ export default React.memo(
     );
     return (
       <div ref={ref} className="dt-pagination" style={style}>
-        <ul className="pagination pagination-sm">
+        {/* <ul className="pagination pagination-sm">
           {pageItems.map(item =>
             typeof item === 'number' ? (
               // actual page number
@@ -114,7 +114,7 @@ export default React.memo(
               </li>
             ),
           )}
-        </ul>
+        </ul> */}
       </div>
     );
   }),

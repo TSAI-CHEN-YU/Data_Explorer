@@ -494,6 +494,18 @@ def execute_sql_statements(  # pylint: disable=too-many-arguments, too-many-loca
             query.set_extra_json_key("progress", msg)
             session.commit()
             try:
+                #####
+                # ----12/9-----modify
+                if 'ORDER BY' not in statement:
+                    if 'LIMIT' in statement:
+                        statement = statement[:statement.index('LIMIT')] + '\n' + 'ORDER BY rand()'
+                    else:
+                        statement = statement + '\n' + 'ORDER BY rand()'
+
+                # ----12/9-----check
+                from colorama import Fore, Style
+                logger.debug(Fore.YELLOW + f"[MODIFY SQL] {statement}" + Style.RESET_ALL)
+                #####
                 result_set = execute_sql_statement(
                     statement,
                     query,

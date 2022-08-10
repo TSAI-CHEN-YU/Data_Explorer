@@ -42,6 +42,16 @@ elif [[ "${1}" == "beat" ]]; then
   echo "Starting Celery beat..."
   celery --app=superset.tasks.celery_app:app beat --pidfile /tmp/celerybeat.pid -l INFO -s "${SUPERSET_HOME}"/celerybeat-schedule
 elif [[ "${1}" == "app" ]]; then
+  py_path="/app/input_your_file"
+  file_path="/app/input_your_file/your_files"
+
+  echo "Starting load data..."
+  python "${py_path}"/data2mysql.py "${file_path}" NTUHex DataExplorer Stanley1127
+  cd "${py_path}"
+
+  echo "Starting modify merge ui option..."
+  python colnames2json.py "${file_path}"
+  cp "${py_path}"/data.json /app/superset-frontend/src/SqlLab/components/react_ui
   echo "Starting web app..."
   flask run -p 8088 --with-threads --reload --debugger --host=0.0.0.0
 elif [[ "${1}" == "app-gunicorn" ]]; then
