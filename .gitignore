@@ -56,7 +56,7 @@ local_config.py
 /superset_text.yml
 superset.egg-info/
 superset/bin/supersetc
-tmp
+# tmp
 rat-results.txt
 superset/app/
 

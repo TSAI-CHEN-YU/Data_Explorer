@@ -109,8 +109,8 @@ function HighlightedSql({
   //       />
   //     }
   //   />
-  // );
     <></>
+  );
 }
 
 export default HighlightedSql;
