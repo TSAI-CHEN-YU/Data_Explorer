@@ -14,7 +14,7 @@ import numpy as np
 from mysql.connector import Error
 from tqdm import tqdm
 from subprocess import call
-import glob, os, sys, openpyxl
+import glob, os, json, sys, openpyxl
 
 def xlsx_sheet_split(Files): #2022/7/18 *xlsx sheet split
     for f in Files:
@@ -51,21 +51,34 @@ def get_file_path():
     print('files:',files_name)
     return files, table_name
 
-def file_to_csv(f):
+def data_to_csv(f):
     # .txt
     if '.txt' in f:
-        with open(f) as text:
-            lines = text.readlines(1)[0]
+        try:
+            with open(f,'r',encoding='utf-8') as text:
+                lines = text.readlines(1)[0]
+        except UnicodeDecodeError:
+            with open(f,'r',encoding='cp950', errors="ignore") as text:
+                lines = text.readlines(1)[0]
         if ',' in lines:
-            df = pd.read_table(f,sep=',')
+            try:
+                df = pd.read_csv(f,sep=',',encoding='utf-8',low_memory=False)
+            except UnicodeDecodeError:
+                df = pd.read_csv(f,sep=',',encoding='cp950',encoding_errors='ignore',low_memory=False)
         else:
-            df = pd.read_table(f,sep='\s+')
+            try:
+                df = pd.read_csv(f,sep='\t',encoding='utf-8',low_memory=False)
+            except UnicodeDecodeError:
+                df = pd.read_csv(f,sep='\t',encoding='cp950',encoding_errors='ignore',low_memory=False)
     # xlsx
     elif '.xlsx' in f:
         df = pd.read_excel(f,engine='openpyxl')
     # csv
     elif '.csv' in f:
-        df = pd.read_csv(f)
+        try:
+            df = pd.read_csv(f,encoding='utf-8',low_memory=False)
+        except UnicodeDecodeError:
+            df = pd.read_csv(f,encoding='big5',encoding_errors='ignore',low_memory=False)
     # pickle
     elif '.pickle' in f:
         df = pd.read_pickle(f)
@@ -89,14 +102,27 @@ def file_to_csv(f):
     print('save csv Done.')
     return df2
 
+#-----Create DB json file(columns2json.py)-----#
+def create_json(df, table_name):
+    # file columns
+    colnames = list(df.columns)
+    #tablecol = [f'{table_name}.{i}' for i in colnames]
 
-
-
-
-
-#-----Auto csv to mysql-----#
-##[Create MySQL table] & [Import the CSV data into the MySQL table]
-def csv_to_mysql(csv_path, DF, table_name, database_name, dbuser_name, dbuser_passwd, database_port=3306):
+    # json element
+    json_save = dict(label=table_name,
+                     title=table_name,
+                     value=table_name,
+                     children=[dict(label=i,
+                                    title=i,
+                                    value=f'{table_name}.{i}',
+                                    description='some description...') for i in colnames]
+                    )
+    return json_save
+  
+#-----Auto data to mysql-----# 
+##取得小樣本csv檔 > 讀取小樣本csv檔，建構sql表 > 將資料一行行插入sql表
+##[Create MySQL table] & [Import the data into the MySQL table]
+def data_to_mysql(csv_path, DF, table_name, database_name, dbuser_name, dbuser_passwd, database_port=3306):
     '''
         csv_path   = csv data name
         table_name = data save to mysql's table name
@@ -138,6 +164,11 @@ def csv_to_mysql(csv_path, DF, table_name, database_name, dbuser_name, dbuser_pa
     DF.reset_index(inplace=True)
     print('start conn.')
 
+    # convert bool
+    for i in DF.columns:
+        if set(DF[i].unique()) == set(['N', 'Y']):
+            DF[i] = DF[i] == 'Y'
+
     # 3. Create a table & Import the CSV data into the MySQL table
     try:
         conn = msql.connect(
@@ -169,24 +200,40 @@ def csv_to_mysql(csv_path, DF, table_name, database_name, dbuser_name, dbuser_pa
 
 #-----excute code-----#
 Files, Table_name = get_file_path()
+json_save_list = []
 for file_path,table_name in zip(Files, Table_name):
-    DF = file_to_csv(file_path)
+    DF = data_to_csv(file_path)
     csv_path      = "tmp.csv"
     database_name = sys.argv[2]
     dbuser_name   = sys.argv[3]
     dbuser_passwd = sys.argv[4]
     
+    ## create json file
+    json_save = create_json(DF, table_name)
+    json_save_list.append(json_save)
 
+    ## data to sql table
     print(f'Create {table_name} table in {database_name} database...')
-    csv_to_mysql(csv_path      = csv_path,
-                 DF            = DF,
-                 table_name    = table_name,
-                 database_name = database_name,
-                 dbuser_name   = dbuser_name,
-                 dbuser_passwd = dbuser_passwd,
-                 database_port = 3306) #db in docker
+    data_to_mysql(csv_path      = csv_path,      #小樣本csv檔
+                  DF            = DF,            #原始資料
+                  table_name    = table_name,    #sql的table名稱
+                  database_name = database_name, #sql的shema名稱
+                  dbuser_name   = dbuser_name,   #sql的user
+                  dbuser_passwd = dbuser_passwd, #sql的password
+                  database_port = 3306)          #sql使用的port
     
     print(f'Create {table_name} table in {database_name} database Done!')
 
-# shell_cmd = 'rm tmp tmp.csv'
-# call(shell_cmd, shell=True)
+# output .json file(data_table.json)
+with open("data.json", "w") as outfile:
+    outfile.write('[\n')
+    for i in json_save_list:
+        json.dump(i, outfile)
+        outfile.write(',\n')
+    outfile.write(']')
+with open('data.json', 'r') as file:
+    data = file.read().replace('\'','\\"')
+    index = data.rfind(",")
+    data2 = data[:index] + data[index+1:]
+with open("data.json", "w") as outfile:
+    outfile.write(data2)

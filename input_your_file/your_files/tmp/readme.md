@@ -1,0 +1,1 @@
+平台啟動後，如果資料為excel。且存在多個sheet，此文件夾會產生該excel的多個sheet。

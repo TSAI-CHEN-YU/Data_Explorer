@@ -293,9 +293,9 @@ function Welcome({ user, addDangerToast }: WelcomeProps) {
         ) : null}
       </WelcomeNav>
       <Collapse activeKey={activeState} onChange={handleCollapse} ghost bigger>
-        <Collapse.Panel header={t('Recents')} key="1">
-        <Home_content />
-          {/* {activityData &&
+      <Home_content />
+        {/* <Collapse.Panel header={t('Recents')} key="1">
+          {activityData &&
           (activityData.Viewed ||
             activityData.Examples ||
             activityData.Created) &&
@@ -345,8 +345,8 @@ function Welcome({ user, addDangerToast }: WelcomeProps) {
               mine={queryData}
               featureFlag={isFeatureEnabled(FeatureFlag.THUMBNAILS)}
             />
-          )} */}
-        </Collapse.Panel>
+          )}
+        </Collapse.Panel> */}
       </Collapse>
     </WelcomeContainer>
   );

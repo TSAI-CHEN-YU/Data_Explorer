@@ -24,7 +24,7 @@ var setKeys,
   setC1_res,
   setT2_res,
   setC2_res,
-  setTbl_opt_list = null;
+  setTbl_opt_list
 
 // data
 // 1.table,column data
