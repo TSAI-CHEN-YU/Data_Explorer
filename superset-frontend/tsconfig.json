@@ -1,11 +1,13 @@
 {
   "compilerOptions": {
     /* Type Checking */
-    "noImplicitAny": true,
-    "noImplicitReturns": true,
-    "noImplicitThis": true,
-    "noUnusedLocals": true,
-    "strictNullChecks": true,
+    "noImplicitAny": false,
+    "noImplicitReturns": false,
+    "noImplicitThis": false,
+    "noUnusedLocals": false,
+    "strictNullChecks": false,
+    /* import .json */
+    "resolveJsonModule": true,
 
     /* Modules */
     "baseUrl": ".",
@@ -67,6 +69,7 @@
     "./packages/generator-superset/test/**/*"
   ],
   "include": [
+    "./src/**/*.json",
     "./src/**/*",
     "./spec/**/*",
     "./packages/*/src/**/*",
