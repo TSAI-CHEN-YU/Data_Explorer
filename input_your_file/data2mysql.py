@@ -1,9 +1,10 @@
-# data2mysql.py [folder] [database] [user] [password]
+# data2mysql.py [folder] [database] [user] [password] [py_path]
 '''
 folder     = convert file's folder path
 database   = database name
 user       = mysql user name
 password   = mysql user password
+py_path    = python script path
 '''
 # ex : python3 data2mysql.py /home/tsaichenyu/獢屸𢒰/data1 NTUHex DataExplorer Stanley1127
 # - data must clean
@@ -225,15 +226,16 @@ for file_path,table_name in zip(Files, Table_name):
     print(f'Create {table_name} table in {database_name} database Done!')
 
 # output .json file(data_table.json)
-with open("data.json", "w") as outfile:
+py_path = sys.argv[5]
+with open(f"{py_path}/data.json", "w") as outfile:
     outfile.write('[\n')
     for i in json_save_list:
         json.dump(i, outfile)
         outfile.write(',\n')
     outfile.write(']')
-with open('data.json', 'r') as file:
+with open(f"{py_path}/data.json", "r") as file:
     data = file.read().replace('\'','\\"')
     index = data.rfind(",")
     data2 = data[:index] + data[index+1:]
-with open("data.json", "w") as outfile:
+with open(f"{py_path}/data.json", "w") as outfile:
     outfile.write(data2)
