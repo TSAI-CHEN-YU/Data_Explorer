@@ -32,7 +32,7 @@ under the License.
   width="500"
 />
 
-# Data Explorer plus
+# AINTU Data Explorer
 
 <img
   src="https://github.com/TSAI-CHEN-YU/superset/blob/main/superset-frontend/src/assets/images/Explorer_logo.png"
@@ -46,3 +46,4 @@ This tool is secondary developed by [Apache Superset 2](https://github.com/apach
 ## Release
 
 - 2022-8-9 v0.0
+- 2022-12-28 v1.0

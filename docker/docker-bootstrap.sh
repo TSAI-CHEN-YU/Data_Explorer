@@ -46,7 +46,7 @@ elif [[ "${1}" == "app" ]]; then
   file_path="/app/input_your_file/your_files"
 
   echo "Starting load data to mysql..."
-  python "${py_path}"/data2mysql.py "${file_path}" NTUHex DataExplorer Stanley1127 "${py_path}"
+  python "${py_path}"/data2mysql.py "${file_path}" NTUHex DataExplorer Stanley1127 dbDocker 3306
   cd "${py_path}"
 
   echo "Starting modify merge ui option..."
